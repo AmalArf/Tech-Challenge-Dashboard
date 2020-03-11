@@ -5,7 +5,7 @@ use App\challenge;
 use Redirect;
 use App\Admin;
 use Illuminate\Support\Facades\Hash;
-
+use Response;
 class ChallengeController extends Controller
 {
     /**
@@ -41,7 +41,7 @@ class ChallengeController extends Controller
 
         error_log( $request);
 
-        $admin = challenge::create([
+        $challenge = challenge::create([
             'title' => $request['title'],
                 'status' => $request['status'],
                 'description' => $request['description'],
@@ -78,11 +78,14 @@ class ChallengeController extends Controller
      * @param  \App\challenge  $challenge
      * @return \Illuminate\Http\Response
      */
-    public function edit(challenge $challenge)
+    public function edit($id)
     {
         //
-    }
+        $where = array('id_challenge' => $id);
+        $post  = challenge::where($where)->first();
 
+        return Response::json($post);
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -90,9 +93,27 @@ class ChallengeController extends Controller
      * @param  \App\challenge  $challenge
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, challenge $challenge)
+    public function update(Request $request)
     {
-        //
+        $update = ['title' => $request->title, 'description' => $request->description,'status' => $request->status];
+        Challenge::where('id',$request->id)->update($update);
+
+
+        return redirect()->action('ChallengeController@index');
+
+    }
+    public function updateChallenge(Request $request)
+    {
+        error_log( "updaaaate");
+
+        error_log( $request);
+
+        $update = ['title' => $request->title, 'description' => $request->description,'status' => $request->status];
+        Challenge::where('id_challenge',$request->id)->update($update);
+
+
+        return redirect()->action('ChallengeController@index');
+
     }
 
     /**
@@ -101,8 +122,10 @@ class ChallengeController extends Controller
      * @param  \App\challenge  $challenge
      * @return \Illuminate\Http\Response
      */
-    public function destroy(challenge $challenge)
+    public function destroy($id)
     {
-        //
+        Challenge::where('id_challenge',$id)->delete();
+
+        return redirect()->action('ChallengeController@index');
     }
 }

@@ -29,4 +29,5 @@ Route::view('/admin', 'admin');
 Route::view('/organizer', 'organizer')->name('organizer');
 //Route::post('/login/admin', 'Auth\LoginController@adminLogin');
 Route::resource('challenges', 'ChallengeController');
+Route::post('/challenges/updateChallenge', 'ChallengeController@updateChallenge')->name('updateCh');
 
