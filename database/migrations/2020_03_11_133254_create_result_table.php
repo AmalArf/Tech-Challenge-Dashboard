@@ -18,8 +18,8 @@ class CreateResultTable extends Migration
             $table->integer('id_challenge');
 
 
-            //$table->foreign('id_user')->unsigned()->references('id_user')->on('users');;
-            //$table->foreign('id_challenge')->unsigned()->references('id_challenge')->on('challenges');
+            $table->foreign('id_user')->unsigned()->references('id')->on('users');;
+            $table->foreign('id_challenge')->unsigned()->references('id_challenge')->on('challenges');
 
             $table->primary(['id_user', 'id_challenge']);
             $table->string('code');

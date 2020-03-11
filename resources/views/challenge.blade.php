@@ -2,7 +2,7 @@
 
 
 
-   <a style="margin: 2%;margin-left: 5%;color:white" data-toggle="modal" data-target="#AddModal" class="btn btn-info">New Challenge</a>
+   <a style="margin: 2%;margin-left: 5%;color:white" data-toggle="modal" data-target="#AddModal" class="btn btn-info"><i class="fa fa-add"></i>New Challenge</a>
 
 
 
@@ -30,7 +30,10 @@
               <textarea class="form-control" name="description" id="description" placeholder="Challenge Description"></textarea>
             </div>
               <label for="status" class="form-control-label">Status</label>
-              <input type="text" class="form-control" name ="status" id="status" placeholder="Challenge Status">
+              <select  name ="status" id="status" placeholder="Challenge Status" class="form-control">
+                <option>ongoing</option>
+                <option>closed</option>
+              </select>
             </div>
 
             <div class="form-group">

@@ -63,14 +63,14 @@
                                              <td>{{ $challenge->finishDate }}</td>
 
                                              <td class="text-center">
-                                              <a href="{{ route('challenges.edit',$challenge->id_challenge)}}" class="btn btn-primary">Edit</a></td>
+                                              <a href="{{ route('challenges.edit',$challenge->id_challenge)}}" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a></td>
                                              <td class="text-center">
                                              <form action="{{ route('challenges.destroy', $challenge->id_challenge)}}" method="post">
                                               {{ csrf_field() }}
                                               @method('DELETE')
-                                              <button class="btn btn-danger" type="submit">Delete</button>
+                                              <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i> Delete</button>
                                               <td class="text-center">
-                                                <a href="{{ route('challenges.edit',$challenge->id_challenge)}}" class="btn btn-outline-danger">Close</a></td>
+                                                <a href="{{ route('challenges.edit',$challenge->id_challenge)}}" class="btn btn-outline-danger"><i class="fa fa-close"></i> Close</a></td>
                                             </form>
                                             </td>
                                           </tr>

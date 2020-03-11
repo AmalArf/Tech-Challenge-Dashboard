@@ -46,7 +46,8 @@ class ChallengeController extends Controller
                 'status' => $request['status'],
                 'description' => $request['description'],
                 'startDate' => $request['startDate'],
-                'finishDate'=>$request['finishDate']
+                'finishDate'=>$request['finishDate'],
+                'id_organizer'=>1
 
         ]);
         return redirect()->action('ChallengeController@index');

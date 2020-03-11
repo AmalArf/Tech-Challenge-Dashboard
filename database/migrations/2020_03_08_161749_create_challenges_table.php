@@ -15,14 +15,14 @@ class CreateChallengesTable extends Migration
     {
         Schema::create('challenges', function (Blueprint $table) {
             $table->integer('id_challenge')->autoIncrement();
-            // $table->integer('id_organizer');
+            $table->integer('id_organizer');
              $table->string('title');
              $table->string('status');
              $table->string('description');
              $table->date('startDate')->nullable(false);
              $table->date('finishDate')->nullable(false);
              $table->timestamps();
-           //  $table->foreign('id_organizer')->unsigned()->references('id_organizer')->on('organizers');;
+            $table->foreign('id_organizer')->unsigned()->references('id_organizer')->on('organizers');;
          });
     }
 
