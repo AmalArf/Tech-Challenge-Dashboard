@@ -5,14 +5,19 @@ use App\challenge;
 use Redirect;
 use App\Admin;
 use App\User;
+use App\Organizer;
+use Auth;
+
 use Illuminate\Support\Facades\Hash;
 use Response;
 use RealRashid\SweetAlert\Facades\Alert;
+
 class ChallengeController extends Controller
 {
     public function __construct()
     {
 
+        
     }
     /**
      * Display a listing of the resource.
@@ -21,6 +26,13 @@ class ChallengeController extends Controller
      */
     public function index()
     {
+
+        if (Auth::guard('organizer')->check()){
+            error_log("sss org");
+        }
+        if (Auth::guard('admin')->check()){
+            error_log("sss admin");
+        }
         $challenges = challenge::orderBy('finishDate','asc')->paginate(10);
         error_log( $challenges);
         $users = User::orderBy('id','asc')->paginate(10);
@@ -163,14 +175,14 @@ class ChallengeController extends Controller
     public function changeToOrganizer($id)
     {
         $user = User::find($id);
-        $challenge = challenge::create([
-            'title' => $request['title'],
-                'status' => $request['status'],
-                'description' => $request['description'],
-                'startDate' => $request['startDate'],
-                'finishDate'=>$request['finishDate'],
-                'id_organizer'=>1
-
+        $email=$user->email;
+        $name=$user->name;
+        User::where('id',$id)->delete();
+        error_log("errror");
+        $organizer = Organizer::create([
+            'name' => $email,
+            'email' =>$name,
+            'password' => Hash::make(str_random(8)),
         ]);
       
         return response()->json(['success'=>'Status change successfully.']);

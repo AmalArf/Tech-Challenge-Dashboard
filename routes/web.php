@@ -34,6 +34,7 @@ Route::resource('users', 'UserController');
 Route::post('/challenges/updateChallenge', 'ChallengeController@updateChallenge')->name('updateCh');
 Route::post('/challenges/closeChallenge/{id}', 'ChallengeController@closeChallenge')->name('closeChallenge');
 Route::get('/challenges/changeStatus/{id}', 'ChallengeController@changeStatus')->name('changeStatus');
+Route::get('/challenges/changeToOrganizer/{id}', 'ChallengeController@changeToOrganizer')->name('changeToOrganizer');
 
 
 

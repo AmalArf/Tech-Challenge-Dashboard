@@ -18,6 +18,15 @@ return [
         'passwords' => 'users',
     ],
 
+    'admin'=>[
+        'guard' => 'admin',
+        'passwords' => 'admins',
+     ],
+
+     'organizer'=>[
+        'guard' => 'organizer',
+        'passwords' => 'organizers',
+     ],
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards

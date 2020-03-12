@@ -18,11 +18,14 @@
          
             
                
-                <div class="card-header">Dashboard  </div>
+                {{-- <div class="card-header">Dashboard  </div> --}}
+                @if(Auth::guard('admin')->check())
+                <div class="card-header">Dashboard Ad</div>Hello Org 
+             @endif
                 
-                {{-- @elseif(Auth::guard('organizer')->check())
-                <div class="card-header">Dashboard Guest</div>Hello Org --}}
-            {{-- @endif --}}
+                @if(Auth::guard('organizer')->check())
+                <div class="card-header">Dashboard Guest</div>Hello Org 
+             @endif
                 
                
                 {{-- <div class="card-header">Dashboard Admin</div> --}}
@@ -82,8 +85,8 @@
 
                                      <td class="text-center">
                                         {{-- <input type="checkbox" style=" .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
-  .toggle.ios .toggle-handle { border-radius: 20px; }" checked data-toggle="toggle"> --}}
-                          <input  class="toggle-class"  type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="on" data-off="off" >
+                                         .toggle.ios .toggle-handle { border-radius: 20px; }" checked data-toggle="toggle"> --}}
+                                  <input  id="setOrganizer" onchange="setOrganizerStatus('<?php echo $user->id;?>')"  class="toggle-class"  type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="on" data-off="off" >
 
                                      </td>
                                     <td class="text-center">
@@ -101,7 +104,7 @@
                                           <form  method="post">
                                               {{ csrf_field() }}
                                              
-                                              <button class="btn btn-outline-danger" type="submit" disabled><i class="fa fa-close"></i> Close</button>
+                                              <button   class="btn btn-outline-danger" type="submit" disabled><i class="fa fa-close"></i> Close</button>
                                             </form>
                                     </td>
                                   </tr>
@@ -267,7 +270,27 @@
         location.reload(true);
         }
 
-      }
+      }</script>
+      <script>
+      function setOrganizerStatus(id) {
+        console.log(id);
+     
+        console.log(document.getElementById('setOrganizer').checked);
+        var user_id = $(this).data('id'); 
+         console.log(id ,"::::::::::");
+         var r = confirm("Are u sure you want to set user with id : "+id +" as a guest ");
+         if(r==true){
+          $.get('challenges/changeToOrganizer/'+id, function (data) {
+          console.log(data);
+        })
+         }
+         
+        location.reload(true);
+
+        }
+
+      
+
       </script>
 <script>
     $(document).ready(function () {
