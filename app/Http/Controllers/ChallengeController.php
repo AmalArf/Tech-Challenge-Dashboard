@@ -4,10 +4,16 @@ use Illuminate\Http\Request;
 use App\challenge;
 use Redirect;
 use App\Admin;
+use App\User;
 use Illuminate\Support\Facades\Hash;
 use Response;
+use RealRashid\SweetAlert\Facades\Alert;
 class ChallengeController extends Controller
 {
+    public function __construct()
+    {
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +23,9 @@ class ChallengeController extends Controller
     {
         $challenges = challenge::orderBy('finishDate','asc')->paginate(10);
         error_log( $challenges);
-
-        return view('organizer')->with('challenges',$challenges)->withTitle('challenge');;
+        $users = User::orderBy('id','asc')->paginate(10);
+        return view('organizer', compact(['challenges', 'users']));
+        // return view('organizer')->with('challenges',$challenges)->withTitle('challenge');;
     }
 
     /**
@@ -95,7 +102,9 @@ class ChallengeController extends Controller
      */
     public function update(Request $request)
     {
-        $update = ['title' => $request->title, 'description' => $request->description,'status' => $request->status];
+        error_log("eeeeeeeeeeeeeeee");
+        $update = ['title' => $request->title, 'description' => $request->description,'status' => $request->status,'startDate' => $request->startDate,'finishDate' => $request->finishDate];
+        
         Challenge::where('id',$request->id)->update($update);
 
 
@@ -106,13 +115,14 @@ class ChallengeController extends Controller
     {
         error_log( "updaaaate");
 
-        error_log( $request);
+        
 
-        $update = ['title' => $request->title, 'description' => $request->description,'status' => $request->status];
+        $update = ['title' => $request->title, 'description' => $request->description,'status' => $request->status,'startDate' => $request->startDate,'finishDate' => $request->finishDate];
         Challenge::where('id_challenge',$request->id)->update($update);
-
+        emotify('success', 'You are awesome, your data was successfully created');
 
         return redirect()->action('ChallengeController@index');
+
 
     }
 
@@ -124,8 +134,45 @@ class ChallengeController extends Controller
      */
     public function destroy($id)
     {
+        
         Challenge::where('id_challenge',$id)->delete();
+        emotify('success', 'You are awesome, your data was successfully created');
+
 
         return redirect()->action('ChallengeController@index');
+    }
+    public function closeChallenge($id)
+    {
+        error_log("closeeeee");
+        $update = ['status' => "closed"];
+        Challenge::where('id_challenge',$id)->update($update);
+        emotify('success', 'You are awesome, your data was successfully created');
+
+        return redirect()->action('ChallengeController@index');
+    }
+
+    public function changeStatus($id)
+    {
+        $user = User::find($id);
+        $user->is_participant = 1;
+        $user->save();
+      
+        return response()->json(['success'=>'Status change successfully.']);
+    }
+
+    public function changeToOrganizer($id)
+    {
+        $user = User::find($id);
+        $challenge = challenge::create([
+            'title' => $request['title'],
+                'status' => $request['status'],
+                'description' => $request['description'],
+                'startDate' => $request['startDate'],
+                'finishDate'=>$request['finishDate'],
+                'id_organizer'=>1
+
+        ]);
+      
+        return response()->json(['success'=>'Status change successfully.']);
     }
 }

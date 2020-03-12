@@ -10,6 +10,9 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use App\Admin;
 use App\Organizer;
+use App\Mail\nootifyAdmin;
+use Illuminate\Support\Facades\Mail;
+
 class RegisterController extends Controller
 {
     /*
@@ -67,11 +70,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user=User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+       
+        $objMail = new \stdClass();
+        $objMail->demo_one = $data['name'];
+        $objMail->demo_two = $data['email'];
+        $admins = Admin::orderBy('id','asc')->get();
+       
+        foreach ($admins as $admin) {
+            error_log("admins");
+            Mail::to($admin->email)->send(new nootifyAdmin($objMail));
+
+        //     Mail::to("arfaouiamal0@gmail.com")->send(new nootifyAdmin($objMail));
+          }
+         
+        
+        return $user;
     }
     public function showAdminRegisterForm()
     {

@@ -4,8 +4,31 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
+            <div class="alert alert-success" role="alert">
+
+                In case of adding a new user, you will be notified by email.
+                Don't forget to check your email habitually
+                thank you
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              
             <div class="card">
-                <div class="card-header">Dashboard</div>
+         
+            
+               
+                <div class="card-header">Dashboard  </div>
+                
+                {{-- @elseif(Auth::guard('organizer')->check())
+                <div class="card-header">Dashboard Guest</div>Hello Org --}}
+            {{-- @endif --}}
+                
+               
+                {{-- <div class="card-header">Dashboard Admin</div> --}}
+                
+                
+              
                 <div>
 
 
@@ -30,8 +53,77 @@
 
 
 
-                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...jjj</div>
+                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div class="row">
+                            <div class="col-11">
+                              <table class="table table-bordered" id="laravel_crud" style="margin-left: 5%;margin-right: 5%">
+                               <thead>
+                                  <tr>
+                                     <th>Id</th>
+                                     <th>Name</th>
+                                     <th>Email</th>
+                                    
+                                     <th  class="text-center">set as organizer</th>
+                                     <th  class="text-center">set as participant </th>                                     
+                                     <th  class="text-center">Delete</th> 
+
+
+
+                                  </tr>
+                               </thead>
+                               <tbody>
+                                  @foreach($users as $user)
+                                  <tr>
+                                     <td id="idUser">{{ $user->id }}</td>
+                                     <td>{{  $user->name }}</td>
+                                     <td>{{  $user->email }}</td>
+                                    
+                            
+
+                                     <td class="text-center">
+                                        {{-- <input type="checkbox" style=" .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
+  .toggle.ios .toggle-handle { border-radius: 20px; }" checked data-toggle="toggle"> --}}
+                          <input  class="toggle-class"  type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="on" data-off="off" >
+
+                                     </td>
+                                    <td class="text-center">
+                                        @if( $user->is_participant==1)
+                                        <input id="setParticipant" disabled  checked class="toggle-class" type="checkbox" data-onstyle="secondary" data-offstyle="danger" data-toggle="toggle" data-off="off"   >
+                                
+                                        @else
+                                            
+                                       
+                                        <input id="setParticipant" onchange="getChecked('<?php echo $user->id;?>','<?php echo $user->is_participant;?>')" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="on" data-off="off"  >
+                                        @endif
+                                      
+                                    </td>
+                                      <td class="text-center">
+                                          <form  method="post">
+                                              {{ csrf_field() }}
+                                             
+                                              <button class="btn btn-outline-danger" type="submit" disabled><i class="fa fa-close"></i> Close</button>
+                                            </form>
+                                    </td>
+                                  </tr>
+                                  @endforeach
+
+                                  @if(count($users) < 1)
+                                    <tr>
+                                     <td colspan="10" class="text-center">There are no users available yet!</td>
+                                    </td>
+                                  </tr>
+                                  @endif
+                               </tbody>
+                              </table>
+                              {!! $users->links() !!}
+                           </div>
+                       </div>
+                      
+                    
+                    
+                    </div>
                     <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+                   {{-- challenges list  --}}
                     <div class="tab-pane fade show active" id="pills-challenge" aria-labelledby="pills-challenge-tab">
                         <div>
                             @include('challenge')
@@ -69,9 +161,18 @@
                                               {{ csrf_field() }}
                                               @method('DELETE')
                                               <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i> Delete</button>
+                                             </form>
+                                            </td>
                                               <td class="text-center">
-                                                <a href="javascript:void(0)" id="closeChallenge" data-id="{{ $challenge->id_challenge }}"  class="btn btn-outline-danger"><i class="fa fa-close"></i> Close</a></td>
-                                            </form>
+                                                  <form action="{{ route('closeChallenge', $challenge->id_challenge)}}" method="post">
+                                                      {{ csrf_field() }}
+                                                      @if( $challenge->status=="ongoing")
+                                                      <button class="btn btn-outline-danger" type="submit"><i class="fa fa-close"></i> Close</button>
+                                                      @endif
+                                                      @if( $challenge->status=="closed")
+                                                      <button class="btn btn-outline-danger" type="submit" disabled><i class="fa fa-close"></i> Close</button>
+                                                      @endif
+                                                    </form>
                                             </td>
                                           </tr>
                                           @endforeach
@@ -144,13 +245,37 @@
       </div>
     </div>
 
+
+    <script>
+      function getChecked(id,is_participant) {
+        if(is_participant==1){
+         // document.getElementById('setParticipant').checked=true;
+          document.getElementById('setParticipant').disabled=true;
+        } 
+        console.log(document.getElementById('setParticipant').checked);
+        if(document.getElementById('setParticipant').checked){
+          var status = $(this).prop('participant') == true ? 1 : 0; 
+        var user_id = $(this).data('id'); 
+         console.log(id ,"::::::::::",is_participant);
+         $.get('challenges/changeStatus/'+id, function (data) {
+         
+          console.log(data);
+          
+
+        })
+        
+        location.reload(true);
+        }
+
+      }
+      </script>
 <script>
     $(document).ready(function () {
       $.ajaxSetup({
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
-      });
+      })});
       </script>
       <script>
         function edit(id) {
@@ -179,8 +304,22 @@
 
 
   </script>
+  <script>
+window.onload = function(){
+  if(document.getElementsByClassName("emoticon-alert")[0]!=undefined){
+      setTimeout(function(){
+        document.getElementsByClassName("emoticon-alert")[0].style.display = "none";
+      },3000);
+  }
+  closeAlert();
+}
+function closeAlert(){
+  document.getElementsByClassName("close")[0].addEventListener("click", function(){
+    document.getElementsByClassName("emoticon-alert")[0].style.display = "none";
 
-
+});
+}
+</script>
 
 
 
