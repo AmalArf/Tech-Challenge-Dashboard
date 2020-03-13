@@ -7,6 +7,7 @@ use App\Admin;
 use App\User;
 use App\Organizer;
 use Auth;
+use App\Result;
 
 use Illuminate\Support\Facades\Hash;
 use Response;
@@ -191,8 +192,16 @@ class ChallengeController extends Controller
     public function showChallenge($id){
         error_log("ddddddd");
         $challenge = challenge::where('id_challenge',$id)->first();
-      //  error_log($challenge->title);
-         return view('challenge-detail')->with('challenge',$challenge)->withTitle('challengeDetail');;
+         $results = Result::where('id_challenge',$id)->orderBy('id_challenge','asc')->paginate(10);
+          error_log($results->count());
+
+          foreach($results as $result){
+            error_log($result->code);
+
+          }
+          return view('challenge-detail', compact(['challenge', 'results']));
+
+        // return view('challenge-detail')->with('challenge',$challenge)->withTitle('challengeDetail');;
 
     }
 }

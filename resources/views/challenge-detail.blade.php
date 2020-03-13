@@ -63,58 +63,26 @@ margin-top:-40%;width:100%; height:500%;background-image: url(https://ak1.picdn.
                     <a href="#">{{ $challenge->status}}</a>
                   </td>
                 </tr>
-                <tr>
-                  <th>
-                    <i class="zmdi zmdi-link mr-1 color-danger"></i> Website</th>
-                  <td>
-                    <a href="#">www.example.com</a>
-                  </td>
-                </tr>
-                <tr>
-                  <th>
-                    <i class="zmdi zmdi-calendar mr-1 color-info"></i> Member Since</th>
-                  <td>Mar 21, 2015</td>
-                </tr>
+              
               </table>
             </div>
             <div class="col-xl-4 col-md-6">
               <div class="card-block">
-                <h2 class="color-primary">Recent Posts</h2>
+                <h2 class="color-primary">Comments</h2>
                 <div class="media mb-3">
-                  <div class="media-left">
-                    
-                    
-                  </div>
+        
                   <div class="media-body">
                     <h4 class="no-m">
                       <a href="#">Lorem ipsum dolor sit</a>
                     </h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <p> hhhhh
+                        @foreach($results as $result)
+                        {{ $results->count()}}</p>
+
+                        @endforeach  
                   </div>
-                </div>
-                <div class="media mb-3">
-                  <div class="media-left">
-                    
-                    
-                  </div>
-                  <div class="media-body">
-                    <h4 class="no-m">
-                      <a href="#">Lorem ipsum dolor sit</a>
-                    </h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  </div>
-                </div>
-                <div class="media mb-3">
-                  <div class="media-left">
-                   
-                    
-                  </div>
-                  <div class="media-body">
-                    <h4 class="no-m">
-                      <a href="#">Lorem ipsum dolor sit</a>
-                    </h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  </div>
+                 
+                 
                 </div>
               </div>
             </div>

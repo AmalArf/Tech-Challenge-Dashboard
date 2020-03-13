@@ -22,8 +22,19 @@
                 @if(count($challenges) < 1)
                 <td colspan="10" class="text-center">There are no challenges available yet!</td>
                 @endif
-                <div class="row" style="margin:1%">
 
+                <form action="/search" method="POST" role="search">
+                    {{ csrf_field() }}
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="q"
+                            placeholder="Search challenges"> <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+                <div class="row" style="margin:1%">
 
                         @foreach($challenges as $challenge)
 

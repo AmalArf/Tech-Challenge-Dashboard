@@ -1,5 +1,6 @@
 <?php
-
+use App\challenge;
+use Illuminate\Support\Facades\Input;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,3 +43,12 @@ Route::get('/challenges/changeToOrganizer/{id}', 'ChallengeController@changeToOr
 
 
 
+Route::any ( '/search', function () {
+    $q = Input::get ( 'q' );
+    $challenges = challenge::where ( 'title', 'LIKE', '%' . $q . '%' )->orWhere ( 'description', 'LIKE', '%' . $q . '%' )->get ();
+    if (count ( $challenges ) > 0){
+        return view ( 'home' )->with('challenges',$challenges)->withQuery ( $q );
+    }else{
+        return view ( 'home' )->withMessage ( 'No Details found. Try to search again !' );
+    }
+} );
