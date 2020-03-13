@@ -19,13 +19,10 @@
             
                
                 {{-- <div class="card-header">Dashboard  </div> --}}
-                @if(Auth::guard('admin')->check())
-                <div class="card-header">Dashboard Ad</div>Hello Org 
-             @endif
+                <div class="card-header">Dashboard</div>
+         
                 
-                @if(Auth::guard('organizer')->check())
-                <div class="card-header">Dashboard Guest</div>Hello Org 
-             @endif
+            
                 
                
                 {{-- <div class="card-header">Dashboard Admin</div> --}}

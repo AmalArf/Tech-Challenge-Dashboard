@@ -21,6 +21,9 @@ class RedirectIfAuthenticated
             return redirect('/admin');
         }
         if ($guard == "organizer" && Auth::guard($guard)->check()) {
+            error_log("guuuuuuuuuuuuuuuuuuuard ********************************");
+            error_log(Auth::guard($guard));
+
             return redirect('/organizer');
         }
         if (Auth::guard($guard)->check()) {

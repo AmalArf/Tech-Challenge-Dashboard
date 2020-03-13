@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\challenge;
 class HomeController extends Controller
 {
     /**
@@ -25,7 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $challenges = challenge::where('status', 'ongoing')->orderBy('finishDate','asc')->paginate(10);
+        
+        return view('home', compact('challenges'));
 
-        return view('home');
     }
 }

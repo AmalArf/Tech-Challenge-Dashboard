@@ -4,16 +4,20 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Tech Challenge Dashboard</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+        
+        <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" >
         <!-- Styles -->
         <style>
             html, body {
                 background-color: #fff;
-                color: #636b6f;
+                color: black;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -49,7 +53,7 @@
             }
 
             .links > a {
-                color: #636b6f;
+                color: black;
                 padding: 0 25px;
                 font-size: 13px;
                 font-weight: 600;
@@ -63,8 +67,8 @@
             }
         </style>
     </head>
-    <body>
-        <div class="flex-center position-ref full-height">
+    <body  background="{{asset('cover.jpg')}}">
+        <div style="color :black"  class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
@@ -81,18 +85,49 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    <strong> Tech Challenge Dashboard
                 </div>
+                <div class="card-deck"><div class="card bg-transparent" style="width: 18rem;">
+                        <img style="width:50%;height:50%;margin-left: auto;
+                        margin-right: auto;
+                        display: block;" class="card-img-top" src="{{asset('developer.png')}}" alt="Card image cap">
+                        <div class="card-body">
+                         
+    
+                          <a href="#" class="btn btn-primary">Developer Area</a>
+                        </div>
+                      
+                    
+                </div>
+                <div class="card bg-transparent" style="width: 18rem;">
+                        <img style="width:50%;height:50%;margin-left: auto;
+                        margin-right: auto;
+                        display: block;" class="card-img-top" src="{{asset('developer.png')}}" alt="Card image cap">
+                        <div class="card-body">
+                         
+    
+                          <a href="#" class="btn btn-primary">Organizer Area</a>
+                        </div>
+                      
+                    
+                </div>
+                <div class="card bg-transparent" style="width: 18rem;">
+                        <img style="width:40%;height:40%;margin-left: auto;
+                        margin-right: auto;
+                        display: block;" class="card-img-top" src="{{asset('developer.png')}}" alt="Card image cap">
+                        <div class="card-body">
+                         
+    
+                          <a href="#" class="btn btn-primary">Admin Area</a>
+                        </div>
+                      
+                    
+                </div>
+             </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                
+            </div>
+               
             </div>
         </div>
     </body>

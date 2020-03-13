@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\challenge;
 use Illuminate\Support\Facades\DB;
+use View;
 
 class LoginController extends Controller
 {
@@ -41,6 +42,7 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->middleware('guest:admin')->except('logout');
         $this->middleware('guest:organizer')->except('logout');
+        
     }
     public function showAdminLoginForm()
     {
@@ -56,7 +58,7 @@ class LoginController extends Controller
         ]);
 
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-
+                
             return redirect()->action('ChallengeController@index');
                 }
         return back()->withInput($request->only('email', 'remember'));
@@ -74,12 +76,11 @@ class LoginController extends Controller
             'password' => 'required|min:6'
         ]);
         $challenges = DB::table('challenges')->get();
-        error_log("challenges");
-        error_log($challenges);
+       
         if (Auth::guard('organizer')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-
+            error_log(Auth::guard('organizer')->user()->name);
             // return redirect()->route('organizer', ['challenges' => $challenges]);
-
+            
             return redirect()->action('ChallengeController@index');
         }
         return back()->withInput($request->only('email', 'remember'));
