@@ -25,15 +25,19 @@ Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
     Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
     Route::post('/register/organizer', 'Auth\RegisterController@createOrganizer');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home/checkIfsubmitted/{id_user}/challenge/{id_challenge}', 'HomeController@checkIfsubmitted')->name('checkIfsubmitted');
 Route::view('/admin', 'admin');
 Route::view('/organizer', 'organizer')->name('organizer');
+Route::get('/challengeDetail/{id}', 'ChallengeController@showChallenge')->name('challengeDetail');;
 //Route::post('/login/admin', 'Auth\LoginController@adminLogin');
 Route::resource('challenges', 'ChallengeController');
 Route::resource('users', 'UserController');
-
+Route::post('/home/submit', 'HomeController@submit')->name('submit');
 Route::post('/challenges/updateChallenge', 'ChallengeController@updateChallenge')->name('updateCh');
 Route::post('/challenges/closeChallenge/{id}', 'ChallengeController@closeChallenge')->name('closeChallenge');
 Route::get('/challenges/changeStatus/{id}', 'ChallengeController@changeStatus')->name('changeStatus');
+
+
 Route::get('/challenges/changeToOrganizer/{id}', 'ChallengeController@changeToOrganizer')->name('changeToOrganizer');
 
 

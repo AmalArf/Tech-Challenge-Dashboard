@@ -83,8 +83,12 @@
                                      <td class="text-center">
                                         {{-- <input type="checkbox" style=" .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
                                          .toggle.ios .toggle-handle { border-radius: 20px; }" checked data-toggle="toggle"> --}}
-                                  <input  id="setOrganizer" onchange="setOrganizerStatus('<?php echo $user->id;?>')"  class="toggle-class"  type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="on" data-off="off" >
+                                  @if( $user->is_participant==1)
+                                  <input disabled  checked id="setOrganizer"  class="toggle-class"  type="checkbox" data-onstyle="secondary" data-offstyle="danger" data-toggle="toggle" data-on="on" data-off="off" >
+                                      @else
+                                      <input  id="setOrganizer" onchange="setOrganizerStatus('<?php echo $user->id;?>')"  class="toggle-class"  type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="on" data-off="off" >
 
+                                  @endif
                                      </td>
                                     <td class="text-center">
                                         @if( $user->is_participant==1)
@@ -146,7 +150,8 @@
                                           @foreach($challenges as $challenge)
                                           <tr>
                                              <td id="idChallenge">{{ $challenge->id_challenge }}</td>
-                                             <td>{{ $challenge->title }}</td>
+                                             
+                                             <td><a href="{{ url('challengeDetail/'.$challenge->id_challenge) }}"> {{ $challenge->title }}</a></td>
                                              <td>{{ $challenge->description }}</td>
                                              <td>{{ $challenge->status }}</td>
 
@@ -326,16 +331,16 @@
   </script>
   <script>
 window.onload = function(){
-  if(document.getElementsByClassName("emoticon-alert")[0]!=undefined){
+  if(document.getElementsByClassName("notify-alert")[0]!=undefined){
       setTimeout(function(){
-        document.getElementsByClassName("emoticon-alert")[0].style.display = "none";
+        document.getElementsByClassName("notify-alert")[0].style.display = "none";
       },3000);
   }
   closeAlert();
 }
 function closeAlert(){
   document.getElementsByClassName("close")[0].addEventListener("click", function(){
-    document.getElementsByClassName("emoticon-alert")[0].style.display = "none";
+    document.getElementsByClassName("notify-alert")[0].style.display = "none";
 
 });
 }

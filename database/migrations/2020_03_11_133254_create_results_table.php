@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateResultTable extends Migration
+class CreateResultsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateResultTable extends Migration
      */
     public function up()
     {
-        Schema::create('result', function (Blueprint $table) {
+        Schema::create('results', function (Blueprint $table) {
             $table->integer('id_user');
             $table->integer('id_challenge');
 
 
-            $table->foreign('id_user')->unsigned()->references('id')->on('users');;
+            $table->foreign('id_user')->unsigned()->references('id')->on('users');
             $table->foreign('id_challenge')->unsigned()->references('id_challenge')->on('challenges');
 
             $table->primary(['id_user', 'id_challenge']);

@@ -187,4 +187,12 @@ class ChallengeController extends Controller
       
         return response()->json(['success'=>'Status change successfully.']);
     }
+    
+    public function showChallenge($id){
+        error_log("ddddddd");
+        $challenge = challenge::where('id_challenge',$id)->first();
+      //  error_log($challenge->title);
+         return view('challenge-detail')->with('challenge',$challenge)->withTitle('challengeDetail');;
+
+    }
 }
