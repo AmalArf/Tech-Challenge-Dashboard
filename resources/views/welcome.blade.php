@@ -94,7 +94,9 @@
                         <div class="card-body">
                          
     
-                          <a href="#" class="btn btn-primary">Developer Area</a>
+                                <a href="{{ url('/login') }}" class="btn ">Login as Developer</a>
+                            
+                                <a href="{{ url('/register') }}" class="btn">Register as Developer</a>
                         </div>
                       
                     
@@ -102,11 +104,14 @@
                 <div class="card bg-transparent" style="width: 18rem;">
                         <img style="width:50%;height:50%;margin-left: auto;
                         margin-right: auto;
-                        display: block;" class="card-img-top" src="{{asset('developer.png')}}" alt="Card image cap">
+                        display: block;" class="card-img-top" src="{{asset('admin.png')}}" alt="Card image cap">
                         <div class="card-body">
                          
     
-                          <a href="#" class="btn btn-primary">Organizer Area</a>
+                          
+                                <a href="{{ url('/login/organizer') }}" class="btn ">Login as Organizer</a>
+                            
+                                <a href="{{ url('/register/organizer') }}" class="btn ">Register as Organizer</a>
                         </div>
                       
                     
@@ -114,11 +119,12 @@
                 <div class="card bg-transparent" style="width: 18rem;">
                         <img style="width:40%;height:40%;margin-left: auto;
                         margin-right: auto;
-                        display: block;" class="card-img-top" src="{{asset('developer.png')}}" alt="Card image cap">
+                        display: block;" class="card-img-top" src="{{asset('super.png')}}" alt="Card image cap">
                         <div class="card-body">
-                         
     
-                          <a href="#" class="btn btn-primary">Admin Area</a>
+                          <a href="{{ url('/login/admin') }}" class="btn">Login as Admin</a>
+                            
+                          <a href="{{ url('/register/admin') }}" class="btn ">Register as Admin</a>
                         </div>
                       
                     

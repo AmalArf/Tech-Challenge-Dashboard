@@ -36,8 +36,9 @@ Route::resource('users', 'UserController');
 Route::post('/home/submit', 'HomeController@submit')->name('submit');
 Route::post('/challenges/updateChallenge', 'ChallengeController@updateChallenge')->name('updateCh');
 Route::post('/challenges/closeChallenge/{id}', 'ChallengeController@closeChallenge')->name('closeChallenge');
+Route::post('/challenges/setWinner', 'ChallengeController@setWinner')->name('setWinner');
+
 Route::get('/challenges/changeStatus/{id}', 'ChallengeController@changeStatus')->name('changeStatus');
-Route::post('/challenges/setWinner', 'ChallengeController@setAsWinner')->name('setWinner');
 
 
 Route::get('/challenges/changeToOrganizer/{id}', 'ChallengeController@changeToOrganizer')->name('changeToOrganizer');

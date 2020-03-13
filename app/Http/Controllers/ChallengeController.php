@@ -210,7 +210,7 @@ class ChallengeController extends Controller
         // return view('challenge-detail')->with('challenge',$challenge)->withTitle('challengeDetail');;
 
     }
-    public function setWinner()
+    public function setWinner(Request $request)
     { 
         
         error_log("eeeeeeeeeeeeeeee");
@@ -220,6 +220,7 @@ class ChallengeController extends Controller
 
 
       
-        notify()->success('Code submitted successfully');
+        notify()->success('Winner set successfully');
+        return redirect()->action('ChallengeController@index');
     }
 }

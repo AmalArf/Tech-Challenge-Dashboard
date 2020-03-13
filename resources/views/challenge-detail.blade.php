@@ -97,6 +97,7 @@ margin-top:-40%;width:100%; height:500%;background-image: url(https://ak1.picdn.
 
                             <td>
                                 <form class="col" action="{{ route('setWinner')}}" method="POST">
+                                    {{ csrf_field() }}
                                     <input type="hidden" class="form-control" value="{{$participant->id}}" name="id_user" >
                                     <input type="hidden" class="form-control" value="{{ $challenge->id_challenge}}" name="id_challenge" >
                               <button type="submit" class="btn btn-primary pull-right">set as winner</button>
