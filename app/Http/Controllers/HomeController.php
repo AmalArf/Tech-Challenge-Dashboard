@@ -78,4 +78,5 @@ class HomeController extends Controller
         return Response::json($submitted);
 
     }
+   
 }

@@ -66,93 +66,60 @@ margin-top:-40%;width:100%; height:500%;background-image: url(https://ak1.picdn.
               
               </table>
             </div>
-            <div class="col-xl-4 col-md-6">
+            <div class="col-xl-4 col-md-12">
               <div class="card-block">
                 <h2 class="color-primary">Comments</h2>
                 <div class="media mb-3">
         
                   <div class="media-body">
                     <h4 class="no-m">
-                      <a href="#">Lorem ipsum dolor sit</a>
+                      <a href="#">List of Participant</a>
                     </h4>
-                    <p> hhhhh
-                        @foreach($results as $result)
-                        {{ $results->count()}}</p>
 
-                        @endforeach  
-                  </div>
-                 
-                 
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-4 col-md-6">
-              <div class="card-block">
-                <h2 class="color-primary">Recent contacts</h2>
-                <div class="ms-media-list">
-                  <div class="media mb-2">
 
-                   
-                        
-                    <div class="media-body">
-                      <h4 class="mt-0 mb-0 color-warning">Maria Sharaphova</h4>
-                      <a href="mailto:joe@example.com?subject=feedback">maria.sha@example.com</a>
-                      <div class="">
-                        <a href="javascript:void(0)" class="btn-circle btn-circle-xs no-mr-md btn-facebook">
-                          <i class="zmdi zmdi-facebook"></i>
-                        </a>
-                        <a href="javascript:void(0)" class="btn-circle btn-circle-xs no-mr-md btn-twitter">
-                          <i class="zmdi zmdi-twitter"></i>
-                        </a>
-                        <a href="javascript:void(0)" class="btn-circle btn-circle-xs no-mr-md btn-instagram">
-                          <i class="zmdi zmdi-instagram"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="media mb-2">
-                    <div class="media-left media-middle">
-                      
-                    </div>
-                    <div class="media-body">
-                      <h4 class="mt-0 mb-0 color-warning">Rafael Nadal</h4>
-                      <a href="mailto:joe@example.com?subject=feedback">rafa.nad@example.com</a>
-                      <div class="">
-                        <a href="javascript:void(0)" class="btn-circle btn-circle-xs no-mr-md btn-facebook">
-                          <i class="zmdi zmdi-facebook"></i>
-                        </a>
-                        <a href="javascript:void(0)" class="btn-circle btn-circle-xs no-mr-md btn-twitter">
-                          <i class="zmdi zmdi-twitter"></i>
-                        </a>
-                        <a href="javascript:void(0)" class="btn-circle btn-circle-xs no-mr-md btn-instagram">
-                          <i class="zmdi zmdi-instagram"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="media mb-2">
-                    <div class="media-left media-middle">
+                    <table class="table">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Participant Name</th>
+                            <th scope="col">Code</th>
+                            <th scope="col">Set As Winner</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($participants as $participant)
+                            
+                          <tr>
+                            <th scope="row">{{ $participant->id}}</th>
+                            <td>{{ $participant->name}}</td>
+
+                            <td>{{ $participant->code}}</td>
+
+                            <td>
+                                <form class="col" action="{{ route('setWinner')}}" method="POST">
+                                    <input type="hidden" class="form-control" value="{{$participant->id}}" name="id_user" >
+                                    <input type="hidden" class="form-control" value="{{ $challenge->id_challenge}}" name="id_challenge" >
+                              <button type="submit" class="btn btn-primary pull-right">set as winner</button>
+                                </form>
+                            </td>
+                          </tr>
+                          @endforeach  
+
+                        </tbody>
+                      </table>
                     
-                    </div>
-                    <div class="media-body">
-                      <h4 class="mt-0 mb-0 color-warning">Roger Federer</h4>
-                      <a href="mailto:joe@example.com?subject=feedback">roger.fef@example.com</a>
-                      <div class="">
-                        <a href="javascript:void(0)" class="btn-circle btn-circle-xs no-mr-md btn-facebook">
-                          <i class="zmdi zmdi-facebook"></i>
-                        </a>
-                        <a href="javascript:void(0)" class="btn-circle btn-circle-xs no-mr-md btn-twitter">
-                          <i class="zmdi zmdi-twitter"></i>
-                        </a>
-                        <a href="javascript:void(0)" class="btn-circle btn-circle-xs no-mr-md btn-instagram">
-                          <i class="zmdi zmdi-instagram"></i>
-                        </a>
-                      </div>
-                    </div>
+                    <p> 
+                     
+                        
+                    </p>
+
                   </div>
+                 
+                 
                 </div>
               </div>
             </div>
+            
           </div>
         </div>
       </div>

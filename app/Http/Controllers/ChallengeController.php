@@ -188,20 +188,38 @@ class ChallengeController extends Controller
       
         return response()->json(['success'=>'Status change successfully.']);
     }
-    
+   
     public function showChallenge($id){
         error_log("ddddddd");
         $challenge = challenge::where('id_challenge',$id)->first();
          $results = Result::where('id_challenge',$id)->orderBy('id_challenge','asc')->paginate(10);
           error_log($results->count());
-
+            $participants = collect([]);
           foreach($results as $result){
             error_log($result->code);
-
+            $participant = User::where('id',$result->id_user)->first();
+            error_log($participant->id);
+            $participant->code=$result->code;
+            $participants->put('participant',$participant);
+          
           }
-          return view('challenge-detail', compact(['challenge', 'results']));
+
+
+          return view('challenge-detail', compact(['challenge', 'results','participants']));
 
         // return view('challenge-detail')->with('challenge',$challenge)->withTitle('challengeDetail');;
 
+    }
+    public function setWinner()
+    { 
+        
+        error_log("eeeeeeeeeeeeeeee");
+        $update = ['winner' =>1];
+        
+        Result::where('id_user',$request->id_user)->where('id_challenge',$request->id_challenge)->update($update);
+
+
+      
+        notify()->success('Code submitted successfully');
     }
 }
